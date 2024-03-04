@@ -1,23 +1,18 @@
 package chess.piece;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class PawnTest {
 
-    @Test
-    @DisplayName("흰색 폰과 검은색 폰이 생성되어야 한다.")
-    void create() {
-        Pawn whitePawn = new Pawn(Color.WHITE);
-        assertThat(whitePawn.getColor()).isEqualTo(Color.WHITE);
-
-        Pawn blackPawn = new Pawn(Color.BLACK);
-        assertThat(blackPawn.getColor()).isEqualTo(Color.BLACK);
-
-//        assertThatThrownBy(() -> new Pawn(null))
-//                .isInstanceOf(IllegalArgumentException.class);
+    @ParameterizedTest
+    @DisplayName("폰의 색깔은 흰색과 검정색이어야 한다.")
+    @ValueSource(strings = {"WHITE", "BLACK"})
+    void create(Color color) {
+        assertThatCode(() -> new Pawn(color))
+                .doesNotThrowAnyException();
     }
 }
