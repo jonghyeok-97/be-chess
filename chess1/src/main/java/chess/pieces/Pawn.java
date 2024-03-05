@@ -1,21 +1,21 @@
-package chess.piece;
+package chess.pieces;
 
-class Pawn {
+public class Pawn {
     private final Color color;
 
     private Pawn(final Color color) {
         this.color = color;
     }
 
-    static Pawn createDefaultPawn() {
+    public static Pawn createDefaultPawn() {
         return new Pawn(Color.WHITE);
     }
 
-    static Pawn createPawn(final Color color) {
+    public static Pawn createPawn(final Color color) {
         return new Pawn(color);
     }
 
-    Color getColor() {
+    public Color getColor() {
         return color;
     }
 }
