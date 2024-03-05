@@ -7,15 +7,15 @@ public class Pawn {
         this.color = color;
     }
 
-    public static Pawn createDefaultPawn() {
+    public static Pawn createWhitePawn() {
         return new Pawn(Color.WHITE);
     }
 
-    public static Pawn createPawn(final Color color) {
-        return new Pawn(color);
+    public static Pawn createBlackPawn() {
+        return new Pawn(Color.BLACK);
     }
 
-    public Color getColor() {
-        return color;
-    }
+//    public Color getColor() {
+//        return color;
+//    }
 }

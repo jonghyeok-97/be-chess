@@ -26,7 +26,7 @@ public class Board {
         return pawns.size();
     }
 
-    Pawn findPawn(final int index) {
-        return pawns.get(index);
+    Pawn findPawn(final int position) {
+        return pawns.get(position);
     }
 }
