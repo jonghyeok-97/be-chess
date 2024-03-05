@@ -1,13 +1,9 @@
 .gradle
-build/
+build
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
 
 ### IntelliJ IDEA ###
-.idea/
-out/
-.settings
-
-### Gradle ###
-gradle
+.idea
+out
