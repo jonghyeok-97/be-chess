@@ -3,11 +3,16 @@ package chess.piece;
 class Pawn {
     private final Color color;
 
-    Pawn(final Color color) {
-        if (color == null) {
-            throw new IllegalArgumentException("색깔을 정해야 합니다.");
-        }
+    private Pawn(final Color color) {
         this.color = color;
+    }
+
+    static Pawn createDefaultPawn() {
+        return new Pawn(Color.WHITE);
+    }
+
+    static Pawn createPawn(final Color color) {
+        return new Pawn(color);
     }
 
     Color getColor() {

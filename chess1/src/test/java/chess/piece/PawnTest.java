@@ -5,23 +5,23 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PawnTest {
 
     @ParameterizedTest
-    @DisplayName("폰의 색깔은 흰색과 검정색이어야 한다.")
+    @DisplayName("폰 색깔은 흰색과 검정색이어야 한다.")
     @EnumSource(value = Color.class, names = {"WHITE", "BLACK"})
-    void createPawnValidColor(Color color) {
-        assertThatCode(() -> new Pawn(color))
+    void createPawn(Color color) {
+        assertThatCode(() -> Pawn.createPawn(color))
                 .doesNotThrowAnyException();
     }
 
     @Test
-    @DisplayName("폰의 색깔이 없으면 폰은 생성되지 않는다")
-    void createPawnNoColor() {
-        assertThatThrownBy(() -> new Pawn(null))
-                .isInstanceOf(IllegalArgumentException.class);
+    @DisplayName("폰 색깔의 기본값은 흰색이다")
+    void create_기본생성자() {
+        final Pawn defaultPawn = Pawn.createDefaultPawn();
+        assertEquals(Color.WHITE, defaultPawn.getColor());
     }
 }
