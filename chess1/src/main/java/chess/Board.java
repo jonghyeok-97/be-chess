@@ -30,12 +30,9 @@ public class Board {
     }
 
     Board initialize() {
-        Function<Integer, Pawn> whitePawns = i -> Pawn.createWhitePawn();
-        Function<Integer, Pawn> blackPawns = i -> Pawn.createBlackPawn();
-
-        List<Pawn> pawns = Stream.concat(
-                IntStream.rangeClosed(1, 8).mapToObj(whitePawns::apply),
-                IntStream.rangeClosed(1, 8).mapToObj(blackPawns::apply)
+        final List<Pawn> pawns = Stream.concat(
+                IntStream.rangeClosed(1, 8).mapToObj(i -> Pawn.createWhitePawn()),
+                IntStream.rangeClosed(1, 8).mapToObj(i -> Pawn.createBlackPawn())
         ).toList();
         return new Board(pawns);
     }
