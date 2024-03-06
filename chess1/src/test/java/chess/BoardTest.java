@@ -43,9 +43,16 @@ public class BoardTest {
 
     @Test
     @DisplayName("체스 판을 초기화 하면 흰색 폰 8개와 검은색 폰8개가 생성되어 총 16개가 된다")
-    void initialize() {
+    void initializedBoardHas16Pawn() {
         final Board initBoard = board.initialize();
 
         assertThat(initBoard.size()).isEqualTo(16);
+    }
+
+    @Test
+    @DisplayName("초기화 한 체스 판의 상태를 확인한다.")
+    void checkStateOfInitializedBoard() {
+        final Board initBoard = board.initialize();
+        initBoard.print();
     }
 }
