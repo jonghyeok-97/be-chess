@@ -1,5 +1,6 @@
 package chess;
 
+import chess.pieces.Color;
 import chess.pieces.Pawn;
 
 import java.io.BufferedReader;
@@ -9,11 +10,13 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Board {
     private final List<Pawn> pawns;
@@ -27,14 +30,14 @@ public class Board {
     }
 
     Board initialize() {
-        final List<Pawn> blackPawns = IntStream.rangeClosed(1, 8)
-                .mapToObj(i -> Pawn.createBlackPawn())
-                .collect(Collectors.toList());
-        final List<Pawn> whitePawns = IntStream.rangeClosed(1, 8)
-                .mapToObj(i -> Pawn.createWhitePawn())
-                .toList();
-        blackPawns.addAll(whitePawns);
-        return new Board(blackPawns);
+        Function<Integer, Pawn> whitePawns = i -> Pawn.createWhitePawn();
+        Function<Integer, Pawn> blackPawns = i -> Pawn.createBlackPawn();
+
+        List<Pawn> pawns = Stream.concat(
+                IntStream.rangeClosed(1, 8).mapToObj(whitePawns::apply),
+                IntStream.rangeClosed(1, 8).mapToObj(blackPawns::apply)
+        ).toList();
+        return new Board(pawns);
     }
 
     void print() {
