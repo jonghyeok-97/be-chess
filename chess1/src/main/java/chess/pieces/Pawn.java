@@ -3,6 +3,7 @@ package chess.pieces;
 public class Pawn {
     private final Color color;
 
+
     private Pawn(final Color color) {
         this.color = color;
     }
@@ -15,7 +16,7 @@ public class Pawn {
         return new Pawn(Color.BLACK);
     }
 
-//    public Color getColor() {
-//        return color;
-//    }
+    public boolean isBlack() {
+        return color == Color.BLACK;
+    }
 }

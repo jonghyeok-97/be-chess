@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -36,6 +37,33 @@ public class Board {
         return new Board(blackPawns);
     }
 
+    void print() {
+        final String blankRow = ".".repeat(8);
+        final StringBuilder boardState = new StringBuilder();
+        boardState.append(blankRow).append("\n")
+                .append(getBlackPawnsResult()).append("\n")
+                .append(blankRow).append("\n")
+                .append(blankRow).append("\n")
+                .append(blankRow).append("\n")
+                .append(blankRow).append("\n")
+                .append(getWhitePawnsResult()).append("\n")
+                .append(blankRow).append("\n");
+        System.out.println(boardState);
+    }
+
+    private String getWhitePawnsResult() {
+        return pawns.stream()
+                .filter(pawn -> !pawn.isBlack())
+                .map(pawn -> "p")
+                .collect(Collectors.joining());
+    }
+
+    private String getBlackPawnsResult() {
+        return pawns.stream()
+                .filter(Pawn::isBlack)
+                .map(pawn -> "P")
+                .collect(Collectors.joining());
+    }
 
 
     Board add(final Pawn pawn) {
