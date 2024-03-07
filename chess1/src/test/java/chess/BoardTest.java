@@ -1,6 +1,6 @@
 package chess;
 
-import chess.pieces.Pawn;
+import chess.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,24 +17,24 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("폰이 3개 추가되면 체스 판의 크기는 3이다.")
-    void increaseBoardSizeByAddingPawn() {
-        final Board onePiece = board.add(Pawn.createWhitePawn());
-        final Board twoPiece = onePiece.add(Pawn.createBlackPawn());
-        final Board threePiece = twoPiece.add(Pawn.createBlackPawn());
+    @DisplayName("기물이 3개 추가되면 체스 판의 크기는 3이다.")
+    void increaseBoardSizeByAddingPiece() {
+        final Board onePiece = board.add(Piece.createWhitePawn());
+        final Board twoPiece = onePiece.add(Piece.createBlackPawn());
+        final Board threePiece = twoPiece.add(Piece.createBlackPawn());
 
         assertThat(threePiece.size()).isEqualTo(3);
     }
 
     @Test
-    @DisplayName("체스 판의 목록을 얻어와 추가한 폰을 찾는다.")
-    void findPawnByPosition() {
-        Pawn black = Pawn.createBlackPawn();
-        final Board onePiece = board.add(black);
+    @DisplayName("체스 판의 목록을 얻어와 추가한 기물을 찾는다.")
+    void findPieceByPosition() {
+        Piece blackPawn = Piece.createBlackPawn();
+        final Board onePiece = board.add(blackPawn);
 
-        final Pawn found = onePiece.findPawn(0);
+        final Piece found = onePiece.findPawn(0);
 
-        assertThat(found).isEqualTo(black);
+        assertThat(found).isEqualTo(blackPawn);
     }
 
     @Test
