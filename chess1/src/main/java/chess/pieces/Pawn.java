@@ -16,6 +16,10 @@ public class Pawn {
         return new Pawn(Color.BLACK);
     }
 
+    public boolean isSameColor(final Color color) {
+        return this.color == color;
+    }
+
     public boolean isBlack() {
         return color == Color.BLACK;
     }

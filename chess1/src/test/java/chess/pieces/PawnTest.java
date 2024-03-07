@@ -2,18 +2,26 @@ package chess.pieces;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PawnTest {
 
     @Test
-    @DisplayName("폰 색깔은 흰색과 검정색이다.")
-    void createPawn() {
+    @DisplayName("흰색 폰의 색깔은 흰색이다.")
+    void createWhitePawn() {
         Pawn white = Pawn.createWhitePawn();
+
+        assertThat(white.isSameColor(Color.WHITE)).isTrue();
+    }
+
+    @Test
+    @DisplayName("검은색 폰의 색깔은 검은색이다.")
+    void createBlackPawn3() {
         Pawn black = Pawn.createBlackPawn();
 
-        assertThat(white).extracting("color").isEqualTo(Color.WHITE);
-        assertThat(black).extracting("color").isEqualTo(Color.BLACK);
+        assertThat(black.isSameColor(Color.BLACK)).isTrue();
     }
 }
