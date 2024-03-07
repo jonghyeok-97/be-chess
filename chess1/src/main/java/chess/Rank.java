@@ -4,6 +4,7 @@ import chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -19,26 +20,26 @@ public class Rank {
         this.pieces = pieces;
     }
 
+    // 검은색 룩,나이트,비숍,퀸,킹,~~ 룩 들이 담긴 랭크
     public Rank createRank8() {
-        return new Rank(getRank8());
+        return new Rank(getPiecesOfRank8());
     }
 
+    // 검은색 폰이 담긴 랭크
     public Rank createRank7() {
-        final List<Piece> blackPawns = IntStream.rangeClosed(1, 8)
-                .mapToObj(i -> Piece.createBlackPawn())
-                .collect(Collectors.toList());
-        return new Rank(blackPawns);
+        final Function<Integer, Piece> blackPawns = i -> Piece.createBlackPawn();
+        return new Rank(createPawnsFrom(blackPawns));
     }
 
+    // 흰색 룩,나이트,비숍,퀸,~~~나이트, 룩이 담긴 랭크
     public Rank createRank1() {
-        return new Rank(getRank1());
+        return new Rank(getPiecesOfRank1());
     }
 
+    // 흰색 폰들이 담긴 랭크
     public Rank createRank2() {
-        final List<Piece> whitePawns = IntStream.rangeClosed(1, 8)
-                .mapToObj(i -> Piece.createWhitePawn())
-                .collect(Collectors.toList());
-        return new Rank(whitePawns);
+        final Function<Integer, Piece> whitePawns = i -> Piece.createWhitePawn();
+        return new Rank(createPawnsFrom(whitePawns));
     }
 
     public Rank createBlankRank() {
@@ -48,7 +49,7 @@ public class Rank {
         return new Rank(empties);
     }
 
-    private List<Piece> getRank8() {
+    private List<Piece> getPiecesOfRank8() {
         return Stream.of(
                 Piece.createBlackRook(),
                 Piece.createBlackKnight(),
@@ -61,7 +62,7 @@ public class Rank {
         ).collect(Collectors.toList());
     }
 
-    private List<Piece> getRank1() {
+    private List<Piece> getPiecesOfRank1() {
         return Stream.of(
                 Piece.createWhiteRook(),
                 Piece.createWhiteKnight(),
@@ -72,6 +73,12 @@ public class Rank {
                 Piece.createWhiteKnight(),
                 Piece.createWhiteRook()
         ).collect(Collectors.toList());
+    }
+
+    private List<Piece> createPawnsFrom(Function<Integer, Piece> pawnsByColor) {
+        return IntStream.rangeClosed(1, 8)
+                .mapToObj(pawnsByColor::apply)
+                .collect(Collectors.toList());
     }
 
     public String getSymbols() {
