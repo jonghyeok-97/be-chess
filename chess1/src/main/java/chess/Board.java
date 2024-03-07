@@ -1,6 +1,8 @@
 package chess;
 
-import chess.pieces.Pawn;
+import chess.pieces.Color;
+import chess.pieces.ColorException;
+import chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,26 +10,25 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static Utils.StringUtils.NEWLINE;
 import static Utils.StringUtils.appendNewLine;
 
 public class Board {
-    private final List<Pawn> pawns;
+    private final List<Piece> pieces;
 
     Board() {
-        this.pawns = new ArrayList<>();
+        this.pieces = new ArrayList<>();
     }
 
-    private Board(final List<Pawn> pawns) {
-        this.pawns = pawns;
+    private Board(final List<Piece> pieces) {
+        this.pieces = pieces;
     }
 
     Board initialize() {
-        final List<Pawn> pawns = Stream.concat(
-                IntStream.rangeClosed(1, 8).mapToObj(i -> Pawn.createWhitePawn()),
-                IntStream.rangeClosed(1, 8).mapToObj(i -> Pawn.createBlackPawn())
+        final List<Piece> pieces = Stream.concat(
+                IntStream.rangeClosed(1, 8).mapToObj(i -> Piece.createWhitePawn()),
+                IntStream.rangeClosed(1, 8).mapToObj(i -> Piece.createBlackPawn())
         ).toList();
-        return new Board(pawns);
+        return new Board(pieces);
     }
 
     void print() {
@@ -43,31 +44,31 @@ public class Board {
     }
 
     private String getWhitePawnsResult() {
-        return pawns.stream()
-                .filter(pawn -> !pawn.isBlack())
-                .map(pawn -> "p")
+        return pieces.stream()
+                .filter(piece -> !piece.isBlack())
+                .map(piece -> "p")
                 .collect(Collectors.joining());
     }
 
     private String getBlackPawnsResult() {
-        return pawns.stream()
-                .filter(Pawn::isBlack)
-                .map(pawn -> "P")
+        return pieces.stream()
+                .filter(Piece::isBlack)
+                .map(piece -> "P")
                 .collect(Collectors.joining());
     }
 
 
-    Board add(final Pawn pawn) {
-        final List<Pawn> adding = new ArrayList<>(pawns);
-        adding.add(pawn);
+    Board add(final Piece piece) {
+        final List<Piece> adding = new ArrayList<>(pieces);
+        adding.add(piece);
         return new Board(adding);
     }
 
     int size() {
-        return pawns.size();
+        return pieces.size();
     }
 
-    Pawn findPawn(final int position) {
-        return pawns.get(position);
+    Piece findPawn(final int position) {
+        return pieces.get(position);
     }
 }
