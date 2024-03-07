@@ -43,10 +43,8 @@ public class Rank {
     }
 
     public Rank createBlankRank() {
-        final List<Piece> empties = IntStream.rangeClosed(1, 8)
-                .mapToObj(i -> Piece.createEmpty())
-                .collect(Collectors.toList());
-        return new Rank(empties);
+        final Function<Integer, Piece> empties = i -> Piece.createEmpty();
+        return new Rank(createPawnsFrom(empties));
     }
 
     private List<Piece> getPiecesOfRank8() {
