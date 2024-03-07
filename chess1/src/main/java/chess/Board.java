@@ -30,14 +30,12 @@ public class Board {
     void print() {
         final String blankRow = ".".repeat(8);
         final StringBuilder boardState = new StringBuilder();
-        boardState.append(blankRow).append("\n")
-                .append(getBlackPawnsResult()).append("\n")
-                .append(blankRow).append("\n")
-                .append(blankRow).append("\n")
-                .append(blankRow).append("\n")
-                .append(blankRow).append("\n")
-                .append(getWhitePawnsResult()).append("\n")
-                .append(blankRow).append("\n");
+        IntStream.rangeClosed(1, 8)
+                .forEach(i -> {
+                    if(i == 2) boardState.append(getBlackPawnsResult()).append("\n");
+                    if(i == 6) boardState.append(getWhitePawnsResult()).append("\n");
+                    else boardState.append(blankRow).append("\n");
+                });
         System.out.println(boardState);
     }
 
