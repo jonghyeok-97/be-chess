@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static Utils.StringUtils.NEWLINE;
+import static Utils.StringUtils.appendNewLine;
+
 public class Board {
     private final List<Pawn> pawns;
 
@@ -32,9 +35,9 @@ public class Board {
         final StringBuilder boardState = new StringBuilder();
         IntStream.rangeClosed(1, 8)
                 .forEach(i -> {
-                    if(i == 2) boardState.append(getBlackPawnsResult()).append("\n");
-                    if(i == 6) boardState.append(getWhitePawnsResult()).append("\n");
-                    else boardState.append(blankRow).append("\n");
+                    if(i == 2) boardState.append(appendNewLine(getBlackPawnsResult()));
+                    if(i == 6) boardState.append(appendNewLine(getWhitePawnsResult()));
+                    else boardState.append(appendNewLine(blankRow));
                 });
         System.out.println(boardState);
     }
