@@ -1,74 +1,61 @@
 package chess;
 
-import chess.pieces.Color;
-import chess.pieces.ColorException;
 import chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static Utils.StringUtils.appendNewLine;
 
 public class Board {
-    private final List<Piece> pieces;
+    private final List<Rank> ranks;
 
     Board() {
-        this.pieces = new ArrayList<>();
+        this.ranks = new ArrayList<>();
     }
 
-    private Board(final List<Piece> pieces) {
-        this.pieces = pieces;
+    private Board(final List<Rank> ranks) {
+        this.ranks = ranks;
     }
 
     Board initialize() {
-        final List<Piece> pieces = Stream.concat(
-                IntStream.rangeClosed(1, 8).mapToObj(i -> Piece.createWhitePawn()),
-                IntStream.rangeClosed(1, 8).mapToObj(i -> Piece.createBlackPawn())
-        ).toList();
-        return new Board(pieces);
+        final Rank rank = new Rank();
+        final List<Rank> chessmen = Stream.of(rank.createRank8(),
+                rank.createRank7(),
+                rank.createBlankRank(),
+                rank.createBlankRank(),
+                rank.createBlankRank(),
+                rank.createBlankRank(),
+                rank.createRank2(),
+                rank.createRank1()).collect(Collectors.toList());
+        return new Board(chessmen);
     }
 
-    void print() {
-        final String blankRow = ".".repeat(8);
-        final StringBuilder boardState = new StringBuilder();
-        IntStream.rangeClosed(1, 8)
-                .forEach(i -> {
-                    if(i == 2) boardState.append(appendNewLine(getBlackPawnsResult()));
-                    if(i == 6) boardState.append(appendNewLine(getWhitePawnsResult()));
-                    else boardState.append(appendNewLine(blankRow));
-                });
-        System.out.println(boardState);
-    }
-
-    private String getWhitePawnsResult() {
-        return pieces.stream()
-                .filter(piece -> !piece.isBlack())
-                .map(piece -> "p")
-                .collect(Collectors.joining());
-    }
-
-    private String getBlackPawnsResult() {
-        return pieces.stream()
-                .filter(Piece::isBlack)
-                .map(piece -> "P")
+    String print() {
+        return ranks.stream()
+                .map(rank -> rank.getSymbols())
+                .map(symbols -> appendNewLine(symbols))
                 .collect(Collectors.joining());
     }
 
 
     Board add(final Piece piece) {
-        final List<Piece> adding = new ArrayList<>(pieces);
-        adding.add(piece);
-        return new Board(adding);
+//        final List<Piece> adding = new ArrayList<>(pieces);
+//        adding.add(piece);
+//        return new Board(adding);
+        return null;
     }
 
     int size() {
-        return pieces.size();
+        return ranks.stream()
+                .mapToInt(rank -> rank.countPiece())
+                .sum();
     }
 
     Piece findPawn(final int position) {
-        return pieces.get(position);
+        // return pieces.get(position);
+        return null;
     }
 }
